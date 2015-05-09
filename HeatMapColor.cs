@@ -1,4 +1,4 @@
-private Color ColorFromHeight(float val, float min, float max)
+private Color GetHeatMapColor(float val, float min, float max)
 {
 	val -= min;
 	val /= (max - min);
