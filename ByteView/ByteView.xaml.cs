@@ -75,5 +75,11 @@ namespace martin2250
 
 			UpdateText();
 		}
+		
+		private void textBoxValue_GotKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
+		{
+			if (textBoxValue.Text == "0")
+				textBoxValue.SelectionStart = 1;
+		}
 	}
 }
