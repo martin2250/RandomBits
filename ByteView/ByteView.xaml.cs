@@ -74,8 +74,6 @@ namespace martin2250
 			}
 
 			UpdateText();
-
-			Console.WriteLine(Value);
 		}
 	}
 }
