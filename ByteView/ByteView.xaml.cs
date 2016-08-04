@@ -2,7 +2,6 @@ using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace martin2250
 {
@@ -15,7 +14,17 @@ namespace martin2250
 			set
 			{
 				_value = value;
-				textBoxValue.Text = Convert.ToString(value, Hex ? 16 : 10);
+				UpdateText();
+			}
+		}
+
+		private byte _max = 255;
+		public byte Max
+		{
+			get { return _max; }
+			set
+			{
+				_max = value;
 			}
 		}
 
@@ -26,41 +35,47 @@ namespace martin2250
 			set
 			{
 				_hex = value;
-				textBoxValue.Text = Convert.ToString(Value, value ? 16 : 10);
-				textBlockHex.Visibility = value ? Visibility.Visible : Visibility.Collapsed;
+				textBlockHex.Visibility = Hex ? Visibility.Visible : Visibility.Collapsed;
+				UpdateText();
 			}
 		}
 
-		public byte Max { get; set; } = 255;
-
+		public ByteView() : this(0) { }
 		public ByteView(byte value)
 		{
 			InitializeComponent();
-
 			Value = value;
+			UpdateText();
 		}
 
-		public ByteView():this(0)
+		private bool TextChangeInternal = false;
+		private void UpdateText()
 		{
+			TextChangeInternal = true;
 
+			int start = textBoxValue.SelectionStart;
+			textBoxValue.Text = Value.ToString(Hex ? "X" : "");
+			textBoxValue.SelectionStart = start;
+
+			TextChangeInternal = false;
 		}
 
-		private void textBoxValue_PreviewTextInput(object sender, TextCompositionEventArgs e)
+		private void textBoxValue_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			string text = ((TextBox)sender).Text + e.Text;
-
-			byte val;
-
-			if (!byte.TryParse(text, NumberStyles.HexNumber, null, out val))
-			{
-				e.Handled = true;
+			if (TextChangeInternal)
 				return;
+
+			byte res;
+
+			if (byte.TryParse("0" + textBoxValue.Text, Hex ? NumberStyles.HexNumber : NumberStyles.Number, null, out res))
+			{
+				if (res <= Max)
+					Value = res;
 			}
 
-			if (val > Max)
-				e.Handled = true;
-			else
-				_value = val;
+			UpdateText();
+
+			Console.WriteLine(Value);
 		}
 	}
 }
