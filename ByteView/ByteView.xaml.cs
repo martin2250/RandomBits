@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace martin2250
 {
@@ -40,12 +41,25 @@ namespace martin2250
 			}
 		}
 
+		private bool _isreadonly = false;
+		public bool IsReadOnly
+		{
+			get { return _isreadonly; }
+			set
+			{
+				_isreadonly = value;
+				textBoxValue.IsReadOnly = value;
+			}
+		}
+
 		public ByteView() : this(0) { }
 		public ByteView(byte value)
 		{
 			InitializeComponent();
 			Value = value;
 			UpdateText();
+
+			this.AddHandler(UIElement.PreviewMouseDownEvent, new MouseButtonEventHandler(UserControl_PreviewMouseDown), true);
 		}
 
 		private bool TextChangeInternal = false;
@@ -75,11 +89,20 @@ namespace martin2250
 
 			UpdateText();
 		}
-		
-		private void textBoxValue_GotKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
+
+		private void textBoxValue_GotFocus(object sender, RoutedEventArgs e)
 		{
-			if (textBoxValue.Text == "0")
-				textBoxValue.SelectionStart = 1;
+			TextBox tb = (TextBox)e.OriginalSource;
+			tb.Dispatcher.BeginInvoke(
+				new Action(delegate
+				{
+					tb.SelectAll();
+				}), System.Windows.Threading.DispatcherPriority.Input);
+		}
+
+		private void UserControl_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+		{
+			FocusManager.SetFocusedElement(this, textBoxValue);
 		}
 	}
 }

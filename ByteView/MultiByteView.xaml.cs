@@ -13,6 +13,17 @@ namespace martin2250
 
 		public static readonly DependencyProperty BufferProperty = DependencyProperty.Register("Buffer", typeof(string), typeof(MultiByteView), new PropertyMetadata(""));
 
+
+		private bool _isreadonly = false;
+		public bool IsReadOnly
+		{
+			get { return _isreadonly; }
+			set
+			{
+				_isreadonly = value;
+			}
+		}
+
 		public MultiByteView()
 		{
 			InitializeComponent();
@@ -26,11 +37,14 @@ namespace martin2250
 
 		public void Update()
 		{
-			stack.Children.Clear();
-
-			foreach(byte b in Buffer)
+			using (var d = Dispatcher.DisableProcessing())
 			{
-				stack.Children.Add(new ByteView(b));
+				stack.Children.Clear();
+
+				foreach (byte b in Buffer)
+				{
+					stack.Children.Add(new ByteView(b) { IsReadOnly = IsReadOnly});
+				}
 			}
 		}
 	}
