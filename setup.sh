@@ -11,3 +11,4 @@ sudo apt-get install texlive texlive-fonts-recommended texlive-lang-german texli
 
 echo "alias dd='dd status=progress'" >> .bashrc
 echo "alias fuck='sudo \$(history -p \!\!)'" >> .bashrc
+echo "alias sudo='sudo '" >> .bashrc    #make above aliases work with sudo
