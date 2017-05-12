@@ -1,0 +1,6 @@
+	Option "MaxSpeed" "3"
+	Option "AccelFactor" "0.08"
+	Option "HorizTwoFingerScroll" "1"
+	Option "TapButton3" "2"
+	Option "VertScrollDelta" "-100"
+	Option "HorizScrollDelta" "100"
