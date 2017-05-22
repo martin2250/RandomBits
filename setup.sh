@@ -33,3 +33,7 @@ echo "MAKEFLAGS=\"-j4\"" >> /etc/makepkg.conf
 yaourt -S ttf-humor-sans	#xkcd font
 
 rm -rf ~/.cache/matplotlib	#makes font work with plt.xkcd()
+
+
+#fixes
+echo "options drm_kms_helper poll=N" >> /etc/modprobe.d/local.conf	#improves high cpu load while watching videos
