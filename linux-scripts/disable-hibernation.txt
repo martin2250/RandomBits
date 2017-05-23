@@ -1,0 +1,3 @@
+remove "resume" from /etc/mkinitcpio.conf 'HOOKS' line
+
+mkinitcpio -P
