@@ -22,6 +22,7 @@ fi
 echo "alias dd='dd status=progress'" >> ~/.bashrc
 echo "alias sudo='sudo '" >> ~/.bashrc    #make aliases work with sudo
 echo "function transfer { curl --upload-file \$1 https://transfer.sh/\$1; echo; }" >> ~/.bashrc
+echo "alias find='find 2>/dev/null'" >> ~/.bashrc
 
 
 #arch
@@ -29,7 +30,6 @@ cp /etc/yaourtrc ~/.yaourtrc
 echo "BUILD_NOCONFIRM=1" >> ~/.yaourtrc
 echo "EDITFILES=0" >> ~/.yaourtrc
 echo "MAKEFLAGS=\"-j4\"" >> /etc/makepkg.conf
-
 yaourt -S ttf-humor-sans	#xkcd font
 
 rm -rf ~/.cache/matplotlib	#makes font work with plt.xkcd()
