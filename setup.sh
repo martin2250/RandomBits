@@ -23,7 +23,7 @@ echo "alias dd='dd status=progress'" >> ~/.bashrc
 echo "alias sudo='sudo '" >> ~/.bashrc    #make aliases work with sudo
 echo "function transfer { curl --upload-file \$1 https://transfer.sh/\$1; echo; }" >> ~/.bashrc
 echo "alias find='find 2>/dev/null'" >> ~/.bashrc
-
+echo "alias untar='tar -xvzf'" >> ~/.bashrc
 
 #arch
 cp /etc/yaourtrc ~/.yaourtrc
