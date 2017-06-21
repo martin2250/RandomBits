@@ -47,6 +47,7 @@ def convert(f):
 		'-i', fin,
 		'-codec:a', 'libmp3lame',
 		'-q:a', '5',
+		'-vn',
 		'-y',
 		'-loglevel', 'quiet',
 		fout
